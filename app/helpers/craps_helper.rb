@@ -1,0 +1,2 @@
+module CrapsHelper
+end
