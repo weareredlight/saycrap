@@ -10,6 +10,13 @@ class CrapsController < ApplicationController
   end
 
 
+  def destroy
+    crap = Crap.find(params[:id])
+    crap.destroy
+    render nothing: true, status: 200
+  end
+
+
   private
 
 

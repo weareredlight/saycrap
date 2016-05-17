@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { findIndex }       from 'lodash';
 
 import actionTypes from './action_types';
 
@@ -21,9 +22,20 @@ function craps(state=[], action) {
     return [...state, action.crap];
   case actionTypes.RECEIVE_CRAPS:
     return action.craps;
+  case actionTypes.DELETE_CRAP:
+    return deleteCrap(state, action);
   default:
     return state;
   }
+}
+
+
+function deleteCrap(collection, action) {
+  const idx = findIndex(collection, { 'id': action.id });
+  return [
+    ...collection.slice(0, idx),
+    ...collection.slice(idx + 1)
+  ];
 }
 
 

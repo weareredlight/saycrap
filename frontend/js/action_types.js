@@ -1,7 +1,8 @@
 const actionTypes = {
-  SET_INPUT:     'Set input value',
-  CREATE_CRAP:   'Append crap',
-  RECEIVE_CRAPS: 'Append craps'
+  SET_INPUT:     'INPUT/SET',
+  CREATE_CRAP:   'CRAPS/CREATE',
+  RECEIVE_CRAPS: 'CRAPS/GET',
+  DELETE_CRAP:   'CRAPS/DELETE'
 };
 
 export default actionTypes;
