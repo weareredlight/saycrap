@@ -10,6 +10,13 @@ class CrapsController < ApplicationController
   end
 
 
+  def update
+    crap = Crap.find(params[:id])
+    crap.update(create_params)
+    render json: crap
+  end
+
+
   def destroy
     crap = Crap.find(params[:id])
     crap.destroy
