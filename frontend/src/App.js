@@ -5,6 +5,13 @@ import logo from './logo.svg';
 import './App.css';
 
 
+// procurar javascript reduce e tentem trocar isto para um reduce
+const arrayToObject = (arr) => {
+  const obj = {};
+  arr.forEach((el) => obj[el.id] = el.text);
+  return obj;
+};
+
 const Item = ({ id, text }) => {
   return <li key={id}>{text}</li>;
 };
@@ -14,32 +21,44 @@ class App extends Component {
 
   state = {
     currentCrap: '',
-    messages: [
-      { id: 1, text: 'cenas' },
-      { id: 2, text: 'fixes' }
-    ]
+    messages: {
+      '1': 'cenas',
+      '2': 'fixes'
+    }
   }
 
   componentWillMount() {
     $.getJSON('http://localhost:3000/craps.json')
-      .done((r) => this.setState({ messages: r }));
+      .done((r) => this.setState({ messages: arrayToObject(r) }));
   }
 
   handleInput = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    this.setState({ currentCrap: e.value });
+    this.setState({ currentCrap: e.target.value });
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    $.post('http://localhost:3000/craps.json', { crap: { text: this.state.currentCrap } })
-      .done((r) => this.setState({
+    $.post(
+      'http://localhost:3000/craps.json',
+      { crap: { text: this.state.currentCrap } }
+    ).then((r) => this.setState({
+      currentCrap: '',
+      messages: { ...this.state.messages, [r.id]: r.text }
+    }));
+  }
+
+  // tentem acrescentar a possibilidade de fazer update de mensagens
+  handleUpdate = (id, text) => {
+    $.put(`http://localhost:3000/craps/${id}.json`, { crap: { text }})
+      .then((r) => this.setState({
         currentCrap: '',
-        messages: [...this.state.messages, r]
+        messages: { ...this.state.messages, [r.id]: r.text }
       }));
   }
+
+  // e ja agora tentem tambem acrescentar a possibilidade de delete
+  // $.post(`http://localhost:3000/craps/${id}.json`, { method: '_delete' })
 
   render() {
     const { currentCrap, messages } = this.state;
@@ -50,7 +69,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <ul>
-          {messages.map(Item)}
+          {Object.keys(messages).map((id) => Item({ id, text: messages[id] }))}
         </ul>
         <form onSubmit={this.handleSubmit}>
           <input value={currentCrap} onChange={this.handleInput} />
