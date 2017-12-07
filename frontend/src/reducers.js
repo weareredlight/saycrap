@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { findIndex }       from 'lodash';
 
-import actionTypes from './action_types';
+import actionTypes from './actionTypes';
 
 
 function input(state='', action) {

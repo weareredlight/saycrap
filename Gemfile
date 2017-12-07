@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.6'
-gem 'sqlite3'
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder'
+gem 'rails', '4.2.10'
+gem 'sass-rails'
 gem 'spring'
+gem 'sqlite3'
+gem 'uglifier'

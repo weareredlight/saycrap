@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'react-proptypes';
 import { connect } from 'react-redux';
 
 import {
@@ -9,32 +10,31 @@ import {
 } from './actions';
 
 
-const Crapper = React.createClass({
+class Crapper extends Component {
 
-  propTypes: {
+  static propTypes = {
     craps:    PropTypes.arrayOf(PropTypes.object).isRequired,
     input:    PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired
-  },
+  }
 
 
   componentWillMount() {
     this.props.dispatch(getCraps());
-  },
+  }
 
 
-  handleChange(e) {
-    console.log('yo');
+  handleChange = (e) => {
     this.props.dispatch(setInput(e.target.value));
-  },
+  }
 
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
     const { input, dispatch } = this.props;
     dispatch(createCrap(input));
-  },
+  }
 
 
   renderCrap(crap) {
@@ -44,7 +44,7 @@ const Crapper = React.createClass({
         X
       </button>
     </div>;
-  },
+  }
 
 
   render() {
@@ -62,8 +62,7 @@ const Crapper = React.createClass({
       </div>
     );
   }
-
-});
+}
 
 
 export default connect((state) => ({

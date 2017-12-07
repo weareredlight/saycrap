@@ -1,4 +1,4 @@
-import actionTypes from './action_types';
+import actionTypes from './actionTypes';
 import $ from 'jquery';
 
 
@@ -11,7 +11,7 @@ export function setInput(text) {
 
 export function getCraps() {
   return (dispatch) => {
-    $.getJSON('/craps', (craps) => {
+    $.getJSON('http://localhost:3000/craps', (craps) => {
       dispatch({
         type: actionTypes.RECEIVE_CRAPS,
         craps
@@ -20,10 +20,9 @@ export function getCraps() {
   };
 }
 
-
 export function createCrap(crapText) {
   return (dispatch) => {
-    $.post('/craps', { crap: { text: crapText } }, (crap) => {
+    $.post('http://localhost:3000/craps', { crap: { text: crapText } }, (crap) => {
       dispatch({
         type: actionTypes.CREATE_CRAP,
         crap
