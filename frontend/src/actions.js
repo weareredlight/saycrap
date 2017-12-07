@@ -35,14 +35,15 @@ export function createCrap(crapText) {
 export function deleteCrap(id) {
   return (dispatch) => {
     $.ajax({
-      url: `/craps/${id}`,
-      type: 'DELETE',
+      url: `http://localhost:3000/craps/${id}`,
+      type: 'POST',
+      data: {"_method":"delete"},
       success: function() {
         dispatch({
           type: actionTypes.DELETE_CRAP,
           id
-        })
+        });
       }
-    })
-  }
+    });
+  };
 }

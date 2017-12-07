@@ -29,6 +29,11 @@ class Crapper extends Component {
   }
 
 
+  handleDelete = (crapId) => {
+    this.props.dispatch(deleteCrap(crapId));
+  }
+
+
   handleSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -37,10 +42,10 @@ class Crapper extends Component {
   }
 
 
-  renderCrap(crap) {
+  renderCrap = (crap) => {
     return <div key={crap.id} className='pull-left'>
       <span>{crap.text}</span>
-      <button onClick={() => { this.props.dispatch(deleteCrap(crap.id)); }}>
+      <button onClick={() => this.handleDelete(crap.id)}>
         X
       </button>
     </div>;
