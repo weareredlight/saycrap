@@ -1,7 +1,12 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
-import { setInput, getCraps, createCrap } from './actions';
+import {
+  setInput,
+  getCraps,
+  createCrap,
+  deleteCrap
+} from './actions';
 
 
 const Crapper = React.createClass({
@@ -35,6 +40,9 @@ const Crapper = React.createClass({
   renderCrap(crap) {
     return <div key={crap.id} className='pull-left'>
       <span>{crap.text}</span>
+      <button onClick={() => { this.props.dispatch(deleteCrap(crap.id)); }}>
+        X
+      </button>
     </div>;
   },
 

@@ -31,3 +31,19 @@ export function createCrap(crapText) {
     });
   };
 }
+
+
+export function deleteCrap(id) {
+  return (dispatch) => {
+    $.ajax({
+      url: `/craps/${id}`,
+      type: 'DELETE',
+      success: function() {
+        dispatch({
+          type: actionTypes.DELETE_CRAP,
+          id
+        })
+      }
+    })
+  }
+}
